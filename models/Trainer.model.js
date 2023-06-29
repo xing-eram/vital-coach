@@ -32,8 +32,23 @@ const trainerSchema = new Schema({
         type: String,
         default: '../public/images/default-profile.png'
     },
-    user: { type: Schema.ObjectId, ref: 'User' },
-    courses: [{ type: Schema.ObjectId, ref: 'User' }]
+    user: { 
+        type: Schema.ObjectId, 
+        ref: 'User' },
+    courses: 
+    [
+        { 
+            type: Schema.ObjectId, 
+            ref: 'User' 
+        }
+    ],
+    schedules: 
+    [ 
+        { 
+            type: Schema.ObjectId, 
+            ref: 'Schedule'
+        } 
+    ]
 })
 
 const Trainer = model('Trainer', trainerSchema);
