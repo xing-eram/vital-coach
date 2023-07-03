@@ -23,7 +23,7 @@ const userSchema = new Schema(
     profile:{
       type: String,
       required: true,
-      enum: ['Trainer', 'patient']
+      enum: ['Trainer', 'Patient', 'Admin']
     }
   },
   {
