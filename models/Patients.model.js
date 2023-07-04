@@ -12,6 +12,11 @@ const patientSchema = new Schema({
     },
     gender:{
         type: String,
+        enum: ['Female', 'Male'],
+        require: true
+    },
+    from:{
+        type: String,
         require: true
     },
     birthday:{
@@ -24,7 +29,7 @@ const patientSchema = new Schema({
     },
     image:{
         type: String,
-        default: '../public/images/default-profile.png'
+      default: "https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png"
     },
     user: { type: Schema.ObjectId, ref: 'User' }
     

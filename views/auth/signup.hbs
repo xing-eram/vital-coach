@@ -1,0 +1,35 @@
+<div>
+  <h2>Sign Up</h2>
+  <form action="/auth/signup" method="POST">
+
+    <label> Username
+      <input type="text" name="username" placeholder="Your username" />
+    </label>
+
+    <label> Email
+      <input type="email" name="email" placeholder="Your email" />
+    </label>
+
+    <label> Password
+      <input type="password" name="password" placeholder="Your password" />
+    </label>
+
+    <label> Confirm password
+      <input type="password" name="confirmpassword" placeholder="Confirm password" />
+    </label>
+
+    <label> Profile
+        <input list="profile" type="text" name="profile" >
+        <datalist id="profile">
+            <option value="Trainer">
+            <option value="Patient">
+        </datalist>
+    </label>
+
+    <button type="submit">Sign Up</button>
+
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
+  </form>
+</div>
