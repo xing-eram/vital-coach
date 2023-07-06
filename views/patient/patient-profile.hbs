@@ -1,0 +1,60 @@
+<head>
+  <title>Perfil</title>
+</head>
+<body>
+  <h1>Perfil del Paciente</h1>
+  <img src="ruta-a-la-imagen" alt="Imagen de perfil">
+  <form action="/guardar-perfil" method="POST">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required><br><br>
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" id="apellidos" name="apellidos" required><br><br>
+    <label for="edad">Edad:</label>
+    <input type="text" id="edad" name="edad" required><br><br>
+    <label for="peso">Peso:</label>
+    <input type="text" id="peso" name="peso" required><br><br>
+    <input type="submit" value="Guardar cambios">
+  </form>
+</body>
+</html>
+Archivo calendario.hbs (página de calendario):
+
+html
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calendario</title>
+</head>
+<body>
+  <h1>Calendario del Paciente</h1>
+  <!-- Contenido del calendario -->
+</body>
+</html>
+Archivo proximas_clases.hbs (página de próximas clases):
+
+html
+Copy code
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Próximas Clases</title>
+</head>
+<body>
+  <h1>Próximas Clases del Paciente</h1>
+  <!-- Contenido de las próximas clases -->
+</body>
+</html>
+En este ejemplo, se utilizan archivos de plantilla Handlebars (.hbs) para crear las páginas HTML. En la página principal (index.hbs), se muestra el saludo "¡Hola {{nombre}}!" y se proporcionan tres botones que redirigen a las páginas correspondientes cuando se hace clic en ellos.
+
+En la página de perfil (perfil.hbs), se muestra la imagen de perfil y se utiliza un formulario para mostrar los campos de nombre, apellidos, edad y peso del paciente. Los campos de texto están disponibles para que los usuarios ingresen su información.
+
+En las páginas de calendario (calendario.hbs) y próximas clases (proximas_clases.hbs), puedes agregar el contenido específico de cada sección según tus necesidades.
+
+Recuerda reemplazar "ruta-a-la-imagen" con la ruta real a la imagen de perfil que deseas mostrar.
+
+
+
+
+
+
