@@ -2,19 +2,15 @@ const { Schema, model } = require("mongoose");
 const { TrainerSchema } = require('./Trainer.model');
 
 const scheduleSchema = new Schema({
-    date: {
-        type: Date,
-        require: true
+    day: {
+        type: String,
+        enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     },
-    startTime:{
-        type: Date,
-        require: true
-    },
-    endTime:{
-        type: Date,
-        require: true
+    openTimeBlocks: [ Number ],
+    trainer: {
+        type: Schema.ObjectId, 
+        ref: 'Trainer'
     }
-    
 })
 
 const Schedule = model('Schedule', scheduleSchema);

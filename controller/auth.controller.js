@@ -113,11 +113,11 @@ const postLogin = async (req, res) => {
             const matchEmail = bcrypt.compareSync(password, userExistEmail.password);
 
             if(matchEmail){
-                const loggedUser = userExistEmail.toObject();
-                delete loggedUser.password;
+                const loggedUserEmail = userExistEmail.toObject();
+                delete loggedUserEmail.password;
                 // guardamos el user en el req.session
-                req.session.currentUser = loggedUser;
-                return res.redirect(`admin/${loggedUser._id}/main`);
+                req.session.currentUser = loggedUserEmail;
+                return res.redirect(`admin/${loggedUserEmail._id}/main`);
             }
 
         }
@@ -131,9 +131,9 @@ const postLogin = async (req, res) => {
 
 const getMainPatient = async (req, res) => {
     try {
-        const { username, email, profile } = req.session.currentUser;
+        const { _id, username, email, profile } = req.session.currentUser;
         const foundTrainers = await Trainer.find();
-        res.render('patient/main-patient', {username, email, profile, foundTrainers});
+        res.render('patient/main-patient', {_id, username, email, profile});
     } catch (error) {
         next(error)
     }
@@ -141,9 +141,9 @@ const getMainPatient = async (req, res) => {
 
 const getMainTrainer = (req, res) => {
     try {
-        const { username, email, profile } = req.session.currentUser;
+        const { _id, username, email, profile } = req.session.currentUser;
 
-        res.render('trainer/main-trainer', {username, email, profile});
+        res.render('trainer/main-trainer', {_id, username, email, profile});
     } catch (error) {
         next(error)
     }

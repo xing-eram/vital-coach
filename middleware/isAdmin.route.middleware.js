@@ -1,11 +1,13 @@
 const isAdmin = (req, res, next) => {
-    console.log('Entramos al middleware')
-    if(req.session.currentUser.profile === 'Admin'){
+    const { _id, profile } = req.session.currentUser;
+    console.log(profile)
+    
+    if(profile === 'Admin'){
         next();
-    }else if(req.session.currentUser.profile === 'Patient'){
-        return res.redirect(`/auth/patient/${req.session.currentUser._id}/main`);
-    }else{
-        return res.redirect(`/auth/trainer/${req.session.currentUser._id}/main`);
+    }else if(profile === 'Patient'){
+        res.redirect(`/auth/patient/${_id}/main`);
+    }else if(profile === 'Trainer'){
+        res.redirect(`/auth/trainer/${_id}/main`);
     }
 }
 

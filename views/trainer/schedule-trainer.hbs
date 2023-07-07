@@ -1,0 +1,30 @@
+<div class="container callendar-body">
+    <form action="/trainer/{{_id}}/schedule" method="post">
+        <table class="table table-bordered" style="width: 500px;">
+            <tr>
+                <th scope="col" class="col-1">Timezone</th>
+                <th scope="col" class="col-1">Monday</th>
+                <th scope="col" class="col-1">Tuesday</th>
+                <th scope="col" class="col-1">Wednesday</th>
+                <th scope="col" class="col-1">Thursday</th>
+                <th scope="col" class="col-1">Friday</th>
+                <th scope="col" class="col-1">Saturday</th>
+                <th scope="col" class="col-1">Sunday</th>
+            </tr>
+                {{#each rows}}
+                    <tr>
+                        <td class="p-0"> <div class="box"> {{hour}}:00 </div> </td>
+                        {{#each cols}}
+                            <td class="p-0"> 
+
+                                <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" autocomplete="off" name="{{day}}" value="{{hour}}">
+                                <label class="btn btn-outline-primary d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                {{!-- <input class="form-check-input" type="checkbox" id="checkboxNoLabel-{{day}}-{{hour}}" name="{{hour}}" value="{{day}}"> --}}
+                            </td>
+                        {{/each}}
+                    </tr>
+                {{/each}}
+        </table>
+        <button class="btn btn-primary" type="submit"> submit</button>
+    </form>
+</div>
