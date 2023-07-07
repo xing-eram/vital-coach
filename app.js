@@ -32,6 +32,9 @@ app.use("/", indexRoutes);
 const userRoutes = require("./routes/auth.routes");
 app.use("/auth", userRoutes);
 
+const trainerRoutes = require("./routes/trainer.routes");
+app.use("/trainer", trainerRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

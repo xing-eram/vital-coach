@@ -37,23 +37,19 @@ const trainerSchema = new Schema({
         type: String,
         default: "https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png"
     },
+    courses: [{
+        description: {
+            type: String,
+            require: true
+        },
+        image:{
+            type: String
+        }
+    }],
     user: { 
         type: Schema.ObjectId, 
-        ref: 'User' },
-    courses: 
-    [
-        { 
-            type: Schema.ObjectId, 
-            ref: 'User' 
-        }
-    ],
-    schedules: 
-    [ 
-        { 
-            type: Schema.ObjectId, 
-            ref: 'Schedule'
-        } 
-    ]
+        ref: 'User' 
+    }
 })
 
 const Trainer = model('Trainer', trainerSchema);

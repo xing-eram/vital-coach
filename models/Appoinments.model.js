@@ -9,9 +9,9 @@ const appoinmentSchema = new Schema({
     },
     status:{
         type: String,
-        enum: ['attended', 'cancelled', 'not attended', 'in progress']
+        enum: ['unconfirmed', 'confirmed', 'in progress', 'finished', 'dont', 'cancelled']
     },
-    patient: { 
+    patient:{ 
         type: Schema.ObjectId, 
         ref: 'Patient' 
     },
