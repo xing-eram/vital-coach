@@ -150,8 +150,8 @@ const getMainTrainer = (req, res) => {
 }
 const getAdminMain = (req, res) => {
     try {
-        const { usarname, email, profile } = req.session.currentUser;
-        res.render('admin/main-admin', {usarname, email, profile});
+        const { username, email, profile } = req.session.currentUser;
+        res.render('admin/main-admin', {username, email, profile});
     } catch (error) {
         next(error)
     }

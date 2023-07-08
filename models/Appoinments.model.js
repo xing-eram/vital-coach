@@ -1,21 +1,15 @@
 const { Schema, model } = require("mongoose");
-const { patientSchema } = require('./Patients.model');
-const { TrainerSchema } = require('./Trainer.model');
 
 const appoinmentSchema = new Schema({
     date: {
         type: Date,
         require: true
     },
-    status:{
-        type: String,
-        enum: ['unconfirmed', 'confirmed', 'in progress', 'finished', 'dont', 'cancelled']
-    },
-    patient:{ 
+    patientId:{ 
         type: Schema.ObjectId, 
         ref: 'Patient' 
     },
-    trainer: { 
+    trainerId: { 
         type: Schema.ObjectId, 
         ref: 'Trainer' 
     }
