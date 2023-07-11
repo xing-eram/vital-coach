@@ -1,20 +1,21 @@
-<div >
-  <h2>Log In</h2>
-  <form action="/auth/login" method="POST">
 
-    <label> Username
-      <input type="text" name="user" placeholder="Your username or email" />
-    </label>
-
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
-
-    <button type="submit">Log In</button>
-
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
-</div>
+  <div class="container">
+    <h1>Login</h1>
+    <form action="/auth/login" method="POST">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Username o email</label>
+        <input type="tex" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user" placeholder="Your username o email">
+      </div>
+       <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Your password">
+      </div>
+        
+      <button type="submit" class="btn btn-info">Login</button>
+          
+      {{#if errorMessage}}
+        <p class="text-danger">{{errorMessage}}</p>
+          
+      {{/if}}
+      </form>
+  </div>

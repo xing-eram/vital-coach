@@ -1,6 +1,6 @@
 <div>
     <div>
-        
+
     </div>
     <div>
         <h1>Trainer</h1>
@@ -10,12 +10,68 @@
         <a href="/trainer/{{_id}}/profile">profile</a>
         <a href="/trainer/{{_id}}/schedule">schedule</a>
 
-        
+
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 m-1">
+            <div class="box">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        {{#if foundTrainer}}
+                        <div class="col-md-4">
+                            <img src="{{foundTrainer.image}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{foundTrainer.name}} {{foundTrainer.lastName}}</h5>
+                                <p class="card-text">From {{foundTrainer.from}}</small></p>
+                                <p class="card-text"> <small class="text-body-secondary">{{foundTrainer.birthday}}</small></p>
+                                <p class="card-text"> <small class="text-body-secondary">{{foundTrainer.gender}}</small></p>
+                                <p class="card-text"><small class="text-body-secondary">Username {{username}}</small>
+                                </p>
+                            </div>
+                        </div>
+                        {{else}}
+                        <div class="col-md-4">
+                            <img src="https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png"
+                                class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
 
+                                <h5 class="card-title">{{username}}</h5>
+                                <p class="card-text"></p>
+                                <p class="card-text"><small class="text-body-secondary">From</small></p>
+                                <p class="card-text"><small class="text-body-secondary">Username {{username}}</small>
+                                </p>
 
+                            </div>
+                        </div>
 
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="col-md-6 m-1">
+            <div class="card">
+                <div class="card-header">
+                    Profile
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{foundTrainer.training}}</h5>
+                    <p class="card-text">{{foundTrainer.description}}</p>
 
+                    <a href="/trainer/{{_id}}/profile" class="btn btn-info">Edit profile</a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -9,10 +9,6 @@ const calendarSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Trainer' 
         },
-        appointments: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Appointment'             
-        }],
         days: [
             {
               type: Schema.Types.ObjectId,

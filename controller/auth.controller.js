@@ -4,12 +4,13 @@ const User = require('../models/User.model');
 const Trainer = require('../models/Trainer.model')
 const Patient = require('../models/Patients.model')
 
-const getSignup = (req, res) => {
+const getSignup = (req, res, next) => {
     res.render('auth/signup');
 }
 
-const postSignup = async (req, res) => {
+const postSignup = async (req, res, next) => {
     const {username, email, password, confirmpassword, profile} = req.body;
+   
 
     try {
         
@@ -50,15 +51,34 @@ const postSignup = async (req, res) => {
         const salt = bcrypt.genSaltSync(12);
         const encryptedPassword = bcrypt.hashSync(password, salt);
         const userCreate = await User.create( { username, email, password: encryptedPassword, profile } )
+        
 
         if(userCreate){
-            const userExist = await User.findOne( { username } );
 
-            const loggedUser = userExist.toObject();
-            delete loggedUser.password;
+            if(profile === 'Trainer'){
+                
+                const userExist = await User.findOne( { username } );
+
+                req.session.currentUser = userExist.toObject();
+                delete req.session.currentUser.password;
+                // guardamos el user en el req.session
+
+                const createTrainer = await Trainer.create( {name: username, user: userExist._id})
+            
+                return res.redirect(`admin/${req.session.currentUser._id}/main`);
+            }else{
+                
+                const userExist = await User.findOne( { username } );
+
+                req.session.currentUser = userExist.toObject();
+                delete req.session.currentUser.password;
             // guardamos el user en el req.session
-            req.session.currentUser = loggedUser;
-            return res.redirect(`admin/${loggedUser._id}/main`);
+            const createPatient = await Patient.create( {name: username, user: userExist._id})
+            
+                return res.redirect(`admin/${req.session.currentUser._id}/main`);
+            }
+            
+            
         }
        
         
@@ -80,8 +100,9 @@ const getLogin = (req, res) => {
     res.render('auth/login');
 }
 
-const postLogin = async (req, res) => {
-    const {user, email, password,} = req.body;
+const postLogin = async (req, res, next) => {
+    const {user,  password,} = req.body;
+    console.log(req.body)
     try {
         if(!user) {
             return res.status(400).render('auth/login', { errorMessage: 'The username or email fiel is required' });
@@ -100,11 +121,9 @@ const postLogin = async (req, res) => {
             const matchUserName = bcrypt.compareSync(password, userExistNameUser.password);
 
             if(matchUserName){
-                const loggedUser = userExistNameUser.toObject();
-                delete loggedUser.password;
-                // guardamos el user en el req.session
-                req.session.currentUser = loggedUser;
-                return res.redirect(`admin/${loggedUser._id}/main`);
+                req.session.currentUser = userExistNameUser.toObject();
+                 delete req.session.currentUser.password;
+                return res.redirect(`admin/${req.session.currentUser._id}/main`);
             }
 
         
@@ -113,10 +132,8 @@ const postLogin = async (req, res) => {
             const matchEmail = bcrypt.compareSync(password, userExistEmail.password);
 
             if(matchEmail){
-                const loggedUserEmail = userExistEmail.toObject();
-                delete loggedUserEmail.password;
-                // guardamos el user en el req.session
-                req.session.currentUser = loggedUserEmail;
+                req.session.currentUser = userExistEmail.toObject();
+                 delete req.session.currentUser.password;
                 return res.redirect(`admin/${loggedUserEmail._id}/main`);
             }
 
@@ -125,25 +142,28 @@ const postLogin = async (req, res) => {
         res.status(400).render('auth/login', {errorMessage: 'The username or password are incorrect' } );
 
     } catch (error) {
-        
+        next(error)
     }
 }
 
-const getMainPatient = async (req, res) => {
+const getMainPatient = async (req, res, next) => {
     try {
         const { _id, username, email, profile } = req.session.currentUser;
         const foundTrainers = await Trainer.find();
-        res.render('patient/main-patient', {_id, username, email, profile});
+        res.render('patient/main-patient', {_id, username, email, profile, foundTrainers});
     } catch (error) {
         next(error)
     }
 }
 
-const getMainTrainer = (req, res) => {
+const getMainTrainer = async (req, res, next) => {
     try {
         const { _id, username, email, profile } = req.session.currentUser;
+        const foundTrainer = await Trainer.findOne({user: _id})
+        .populate( {path: 'user'} )
 
-        res.render('trainer/main-trainer', {_id, username, email, profile});
+        res.render('trainer/main-trainer', {_id, username, email, profile, foundTrainer});
+
     } catch (error) {
         next(error)
     }
