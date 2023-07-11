@@ -7,78 +7,125 @@
         <p>Edit</p>
     </button>
 
-    <form action="/trainer/{{_id}}/profile" method="post">
-        {{#if foundTrainer}}
-        <img src="{{foundTrainer.image}}" alt="">
-        <label>
-            Name:
-             <input id="input-name-trainer" type="text" name="name" placeholder="name" value="{{foundTrainer.name}}" readonly/>
-        </label>
+    <div class="container">
 
-        <label>
-            Last Name:
-            <input id="input-lastname-trainer" type="text" name="lastname" placeholder="name" value="{{foundTrainer.lastName}}" readonly/>
-        </label>
+        <form action="/trainer/{{_id}}/profile" method="POST">
 
-        <label>
-            Gender:
-            <input id="input-gender-trainer" list="gender" type="text" name="gender" placeholder="name" value="{{foundTrainer.gender}}" readonly/>
-            <datalist id="gender">
-            <option value="Female">
-            <option value="Male">
-        </datalist>
-        </label>
+            {{#if foundTrainer}}
 
-        <label>
-            From:
-            <input id="input-from-trainer" type="text" name="from" placeholder="name" value="{{foundTrainer.from}}" readonly/>
-        </label>
-        <label >
-            Birthday:
-            <input id="input-birthday-trainer" type="date" name="birthday" placeholder="name" value="{{foundTrainer.birthday}}" min="2005-01-01" max="today" readonly/>
-        </label>
-        <label>
-            Cell Phone:
-            <input id="input-cellphone-trainer" type="text" name="cellphone" placeholder="name" value="{{foundTrainer.cellPhone}}" readonly/>
-        </label>
+            <h3>Profile picture</h3>
+            <img src="{{foundTrainer.image}}" alt="" width="160px" height="160px"
+                class="rounded float-start rounded-circle">
 
-        {{else}}
-        
-        <img src="https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png" alt="" width="120px" height="120px">
-         <label>
-            Name:
-             <input id="input-name-trainer" type="text" name="name" placeholder="name" value="" readonly/>
-        </label>
+            <input type="file" class="form-control" id="inputGroupFile01" name="image" id="input-image-trainer" width="50px">
 
-        <label>
-            Last Name:
-            <input id="input-lastname-trainer" type="text" name="lastname" placeholder="name" value="" readonly/>
-        </label>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Name</label>
+                <input type="tex" class="form-control" aria-describedby="emailHelp" id="input-name-trainer" name="name"
+                    placeholder="name" value="{{foundTrainer.name}}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="input-lastname-trainer" aria-describedby="emailHelp"
+                    name="lastName" placeholder="lastName" value="{{foundTrainer.lastName}}" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputSelect" class="form-label">Gender</label>
+                <select class="form-select" aria-label="Default select example" name="gender" id="input-gender-trainer">
+                    <option selected>{{foundTrainer.gender}}</option>
+                    <option value="Patient">Male</option>
+                    <option value="Trainer">Female</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">From</label>
+                <input class="form-control" id="input-from-trainer" type="text" name="from" placeholder="from" value="{{foundTrainer.from}}" readonly />
 
-        <label>
-            Gender:
-            <input id="input-gender-trainer" list="gender" type="text" name="gender" placeholder="name" value="" readonly/>
-            <datalist id="gender">
-            <option value="Female">
-            <option value="Male">
-        </datalist>
-        </label>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Birthday</label>
+                <input class="form-control" id="input-birthday-trainer" type="text" name="birthday"
+                    placeholder="birthday" value="{{foundTrainer.birthday}}" readonly />
+            </div>
 
-        <label>
-            From:
-            <input id="input-from-trainer" type="text" name="from" placeholder="name" value="" readonly/>
-        </label>
-        <label >
-            Birthday:
-            <input id="input-birthday-trainer" type="text" name="birthday" placeholder="name" value="" readonly/>
-        </label>
-        <label>
-            Cell Phone:
-            <input id="input-cellphone-trainer" type="text" name="cellphone" placeholder="name" value="" readonly/>
-        </label>
-        {{/if}}
-        <button id="update-trainer-profile" type="submit">Save</button>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Cell Phone</label>
+                <input class="form-control" id="input-cellphone-trainer" type="text" name="cellPhone"
+                    placeholder="cellphone" value="{{foundTrainer.cellPhone}}" readonly />
+                </label>
+            </div>
 
-    </form>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Training</label>
+                <input class="form-control" id="input-training-trainer" type="text" name="training"
+                    placeholder="training" value="{{foundTrainer.training}}" readonly />
+                </label>
+            </div>
 
-</div>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Description</label>
+                <textarea type="text" class="form-control" aria-label="With textarea" value="{{foundTrainer.description}}" id="input-description-trainer" name="description" readonly></textarea>
+                </label>
+            </div>
+
+            {{else}}
+            <img src="https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png" alt="" width="160px" height="160px"
+                class="rounded float-start rounded-circle">
+
+            <input type="file" class="form-control" id="inputGroupFile01">
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Name</label>
+                <input type="tex" class="form-control" aria-describedby="emailHelp" id="input-name-trainer" name="name"
+                    placeholder="name" value="" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="input-lastname-trainer" aria-describedby="emailHelp"
+                    name="lastName" placeholder="lastName" value="" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputSelect" class="form-label">Gender</label>
+                <select class="form-select" aria-label="Default select example" name="gender" id="input-gender-trainer">
+                    <option selected></option>
+                    <option value="Patient">Male</option>
+                    <option value="Trainer">Female</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">From</label>
+                <input class="form-control" id="input-from-trainer" type="text" name="from" placeholder="from" value="" readonly />
+
+            </div>
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Birthday</label>
+                <input class="form-control" id="input-birthday-trainer" type="text" name="birthday" placeholder="birthday" value="" readonly />
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Cell Phone</label>
+                <input class="form-control" id="input-cellphone-trainer" type="text" name="cellPhone" placeholder="cellphone" value="" readonly />
+                </label>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Training</label>
+                <input class="form-control" id="input-training-trainer" type="text" name="training" placeholder="training" value="" readonly />
+                </label>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Description</label>
+                <textarea type="text" class="form-control" aria-label="With textarea" value="" id="input-description-trainer" name="description" readonly></textarea>
+                </label>
+            </div>
+            {{/if}}
+
+            <button type="submit" class="btn btn-info">Update</button>
+
+            {{#if errorMessage}}
+            <p class="text-danger">{{errorMessage}}</p>
+
+            {{/if}}
+        </form>
+    </div>

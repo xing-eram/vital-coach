@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const User = require('../models/User.model');
 const Trainer = require('../models/Trainer.model')
 const Day = require('../models/Day.model')
@@ -27,21 +26,14 @@ const getProfile = async (req, res, next) => {
 const postProfile = async (req, res, next) => {
     try {
         const { _id, username, email, profile } = req.session.currentUser;
-        const { name, lastname, gender, from, birthday, cellphone } = req.body;
+        const { name, lastName, gender, from, birthday, cellPhone, training, description, image} = req.body;
 
         const foundTrainer = await Trainer.findOne({user: _id})
         .populate( {path: 'user'} )
 
-        if(foundTrainer){
-            const updateTrainer = await Trainer.findByIdAndUpdate({user: _id}, {name, lastname, gender, from, birthday, cellphone })
-            .populate( {path: 'user'} )
-            res.redirect(`/trainer/${_id}/profile`);
-        }else{
-            const createTrainer = await Trainer.create( {name, lastname, gender, from, birthday, cellphone, user: _id})
-
-            res.redirect(`/trainer/${_id}/profile`);
-        }
-        
+        const updateTrainer = await Trainer.findByIdAndUpdate({user: _id}, {name, lastName, gender, from, birthday, cellPhone, training, description})
+        .populate( {path: 'user'} )
+        res.redirect(`/trainer/${_id}/profile`);
         
     } catch (error) {
         next(error);
@@ -63,16 +55,17 @@ const getSchedule = async (req, res, next) => {
         calendarData = await Calendar.findOne({trainerId: idTrainer})
         .populate( 'trainerId')
         .populate({
-         path: 'days'
+            path: 'days',
+            populate:{
+                path: 'appointments',
+                model: 'Appointment'
+            }
+           
         })
         // console.log('calendarData: ', calendarData);
       
       
-        console.log(idTrainer)
-        console.log(idUser)
         const calendar = createCalendar(calendarData, 6, 20);
-
-        console.log(calendar)
 
         res.render('trainer/schedule-trainer', {idUser, rows: calendar.rows  });
     } catch (error) {

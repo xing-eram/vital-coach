@@ -9,6 +9,8 @@ const updateProfile = (event) =>{
   document.getElementById('input-from-trainer').removeAttribute('readonly')
   document.getElementById('input-birthday-trainer').removeAttribute('readonly')
   document.getElementById('input-cellphone-trainer').removeAttribute('readonly')
+  document.getElementById('input-training-trainer').removeAttribute('readonly')
+  document.getElementById('input-description-trainer').removeAttribute('readonly')
 }
 if(updateProfile){
   buttonUpdateProfile.addEventListener('click', updateProfile);
