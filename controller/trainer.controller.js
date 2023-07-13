@@ -25,15 +25,16 @@ const getProfile = async (req, res, next) => {
 
 const postProfile = async (req, res, next) => {
     try {
-        const { _id, username, email, profile } = req.session.currentUser;
+        const { _id: idUser, username, email, profile } = req.session.currentUser;
         const { name, lastName, gender, from, birthday, cellPhone, training, description, image} = req.body;
 
-        const foundTrainer = await Trainer.findOne({user: _id})
+        const foundTrainer = await Trainer.findOne({user: idUser})
         .populate( {path: 'user'} )
-
-        const updateTrainer = await Trainer.findByIdAndUpdate({user: _id}, {name, lastName, gender, from, birthday, cellPhone, training, description})
-        .populate( {path: 'user'} )
-        res.redirect(`/trainer/${_id}/profile`);
+        console.log(foundTrainer)
+        const trainerId = foundTrainer._id;
+        const updateTrainer = await Trainer.findByIdAndUpdate({_id: trainerId}, {name, lastName, gender, from, birthday, cellPhone, training, description})
+        
+        res.redirect(`/trainer/${idUser}/profile`);
         
     } catch (error) {
         next(error);
@@ -58,7 +59,7 @@ const getSchedule = async (req, res, next) => {
             path: 'days',
             populate:{
                 path: 'appointments',
-                model: 'Appointment'
+                model:'Appointment'
             }
            
         })
@@ -88,7 +89,6 @@ const postSechedule = async (req, res, next) => {
 
         const calendar = await Calendar.findOne({trainerId: idTrainer});
         let calendarId =  calendar && calendar._id;
-        console.log('esto no se que es',calendarId);
 
         if(!calendarId) {
             // si no tenia, creamos un nuevo calendario

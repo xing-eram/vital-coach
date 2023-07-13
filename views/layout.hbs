@@ -17,6 +17,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand" href="/">Vital-Coach</a>
+        {{#if isLoggedIn}}
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active bg-success rounded-3 px-3 mx-2" aria-current="page" href="/auth/logout">Logout</a>
+        </li>
+      </ul>
+      {{else}}
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link active bg-success rounded-3 px-3 mx-2" aria-current="page" href="/auth/login">Login</a>
@@ -25,7 +32,9 @@
           <a class="nav-link bg-body-secondary rounded-3 px-4 text-dark" href="/auth/signup">Signup</a>
         </li>
       </ul>
+      {{/if}}
     </div>
+    
   </div>
 </nav>
 

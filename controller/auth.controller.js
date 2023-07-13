@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/User.model');
 const Trainer = require('../models/Trainer.model')
 const Patient = require('../models/Patients.model')
+const Calendar = require('../models/Calendar.model')
+const createCalendar = require('../utils/create-calendar')
 
 const getSignup = (req, res, next) => {
     res.render('auth/signup');
@@ -65,7 +67,7 @@ const postSignup = async (req, res, next) => {
 
                 const createTrainer = await Trainer.create( {name: username, user: userExist._id})
             
-                return res.redirect(`admin/${req.session.currentUser._id}/main`);
+                return res.redirect(`admin/${userExist._id}/main`);
             }else{
                 
                 const userExist = await User.findOne( { username } );
@@ -75,7 +77,7 @@ const postSignup = async (req, res, next) => {
             // guardamos el user en el req.session
             const createPatient = await Patient.create( {name: username, user: userExist._id})
             
-                return res.redirect(`admin/${req.session.currentUser._id}/main`);
+                return res.redirect(`admin/${userExist._id}/main`);
             }
             
             
@@ -107,9 +109,6 @@ const postLogin = async (req, res, next) => {
         if(!user) {
             return res.status(400).render('auth/login', { errorMessage: 'The username or email fiel is required' });
         }
-        //if(!email) {
-        //    return res.status(400).render('auth/login', { errorMessage: 'The email fiel is required' });
-        //}
         if(!password){
             return res.status(400).render('auth/login', {errorMessage: 'The password fiel is required' });
         }
@@ -123,10 +122,8 @@ const postLogin = async (req, res, next) => {
             if(matchUserName){
                 req.session.currentUser = userExistNameUser.toObject();
                  delete req.session.currentUser.password;
-                return res.redirect(`admin/${req.session.currentUser._id}/main`);
+                 res.redirect(`admin/${userExistNameUser._id}/main`);
             }
-
-        
         }else if(userExistEmail){
             
             const matchEmail = bcrypt.compareSync(password, userExistEmail.password);
@@ -134,11 +131,9 @@ const postLogin = async (req, res, next) => {
             if(matchEmail){
                 req.session.currentUser = userExistEmail.toObject();
                  delete req.session.currentUser.password;
-                return res.redirect(`admin/${loggedUserEmail._id}/main`);
+                 res.redirect(`admin/${userExistEmail._id}/main`);
             }
-
         }
-
         res.status(400).render('auth/login', {errorMessage: 'The username or password are incorrect' } );
 
     } catch (error) {
@@ -158,11 +153,32 @@ const getMainPatient = async (req, res, next) => {
 
 const getMainTrainer = async (req, res, next) => {
     try {
-        const { _id, username, email, profile } = req.session.currentUser;
-        const foundTrainer = await Trainer.findOne({user: _id})
+        const { _id: idUser, username, email, profile } = req.session.currentUser;
+        const foundTrainer = await Trainer.findOne({user: idUser})
         .populate( {path: 'user'} )
 
-        res.render('trainer/main-trainer', {_id, username, email, profile, foundTrainer});
+        const { _id: idTrainer }  = foundTrainer;
+
+        console.log('validamos que esta viajando el id del Entrenador', idTrainer)
+
+        let calendarData;
+        // si el usuario logueado es un admin revisamos si ya tiene un calendario asociado
+        calendarData = await Calendar.findOne({trainerId: idTrainer})
+        .populate( 'trainerId')
+        .populate({
+            path: 'days',
+            populate:{
+                path: 'appointments',
+                model:'Appointment'
+            }
+           
+        })
+        // console.log('calendarData: ', calendarData);
+      
+      
+        const calendar = createCalendar(calendarData, 6, 20);
+
+        res.render('trainer/main-trainer', {idUser, username, email, profile, foundTrainer, rows: calendar.rows });
 
     } catch (error) {
         next(error)
@@ -176,6 +192,18 @@ const getAdminMain = (req, res) => {
         next(error)
     }
 }
+
+ const getLogout = (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(500).render('auth/logout', { errorMessage: err.message });
+        return;
+      }
+      res.redirect("/");
+    });
+  }
+
+
 module.exports = {
     getSignup,
     postSignup,
@@ -183,5 +211,6 @@ module.exports = {
     postLogin,
     getMainPatient,
     getMainTrainer,
-    getAdminMain
+    getAdminMain,
+    getLogout
 }

@@ -5,26 +5,26 @@ const { courseSchema } = require('./Courses.model');
 
 const trainerSchema = new Schema({
     name: {
-        type: String,
+        type: String
     },
     lastName:{
-        type: String,
+        type: String
     },
     gender:{
         type: String,
-        enum: ['Female', 'Male'],
+        enum: ['Female', 'Male']
     },
     from:{
-        type: String,
+        type: String
     },
     birthday:{
-        type: String,
+        type: String
     },
     cellPhone:{
-        type: String,
+        type: String
     },
     training:{
-        type: String,
+        type: String
     },
     description:{
         type: String
