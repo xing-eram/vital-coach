@@ -13,25 +13,22 @@
                             <th scope="col" class="col-1">Dom</th>
                         </tr>
                             {{#each rows}}
-                                <tr>
+                                 <tr>
                                     <td class="p-0"> <div class="box"> {{hour}}:00 </div> </td>
                                     {{#each cols}}
-                                        {{#if isOpen}}
+                                        {{#if isBooked}} 
+                                            <td class="p-0"> 
+                                                <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off" name="{{day}}" value="{{hour}}" disabled>
+                                                <label class="btn btn-outline-danger d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                            </td>   
+                                        {{else if isOpen}}
                                             <td class="p-0"> 
                                                 <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off" name="{{day}}" value="{{hour}}">
                                                 <label class="btn btn-outline-success d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
                                             </td>
-
-                                        {{else if isBooked}} 
-                                        
-                                            <td class="p-0"> 
-                                                <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off" name="{{day}}" value="{{hour}}">
-                                                <label class="btn btn-outline-danger d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
-                                            </td>   
-
                                         {{else}}
-                                            <td class="p-0"> 
 
+                                            <td class="p-0"> 
                                                 <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" autocomplete="off" name="{{day}}" value="{{hour}}">
                                                 <label class="btn btn-outline-primary d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
                                             </td>

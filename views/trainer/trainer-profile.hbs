@@ -1,127 +1,214 @@
-<div>
-    <p>Username: {{username}}</p>
-    <p>Email: {{email}}</p>
-    <p>Perfil: {{profile}}</p>
-
-    <button id="btn-edit-profileTrainer" type="button">
-        <p>Edit</p>
-    </button>
 
     <div class="container">
 
         <form action="/trainer/{{_id}}/profile" method="POST">
-
             {{#if foundTrainer}}
 
-            <h3>Profile picture</h3>
-            <img src="{{foundTrainer.image}}" alt="" width="160px" height="160px"
-                class="rounded float-start rounded-circle">
-
-            <input type="file" class="form-control" id="inputGroupFile01" name="image" id="input-image-trainer" width="50px">
-
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Name</label>
-                <input type="tex" class="form-control" aria-describedby="emailHelp" id="input-name-trainer" name="name"
-                    placeholder="name" value="{{foundTrainer.name}}" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="input-lastname-trainer" aria-describedby="emailHelp"
-                    name="lastName" placeholder="lastName" value="{{foundTrainer.lastName}}" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputSelect" class="form-label">Gender</label>
-                <select class="form-select" aria-label="Default select example" name="gender" id="input-gender-trainer">
-                    <option selected>{{foundTrainer.gender}}</option>
-                    <option value="Patient">Male</option>
-                    <option value="Trainer">Female</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">From</label>
-                <input class="form-control" id="input-from-trainer" type="text" name="from" placeholder="from" value="{{foundTrainer.from}}" readonly />
-
-            </div>
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Birthday</label>
-                <input class="form-control" id="input-birthday-trainer" type="text" name="birthday"
-                    placeholder="birthday" value="{{foundTrainer.birthday}}" readonly />
+            <div class="btn-group me-2 mb-3 mt-3" role="group" aria-label="First group">
+                <button class="btn btn-info" id="btn-edit-profileTrainer" type="button">
+                 Edit
+            </button>
+   
             </div>
 
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Cell Phone</label>
-                <input class="form-control" id="input-cellphone-trainer" type="text" name="cellPhone"
-                    placeholder="cellphone" value="{{foundTrainer.cellPhone}}" readonly />
-                </label>
+            <div class="btn-group me-2 mb-3 mt-3" role="group" aria-label="First group">
+                <button type="submit" class="btn btn-info" id="btn-update-trainer-profile" disabled>Update</button>
             </div>
-
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Training</label>
-                <input class="form-control" id="input-training-trainer" type="text" name="training"
-                    placeholder="training" value="{{foundTrainer.training}}" readonly />
-                </label>
+            <div class="btn-group me-2 mb-3 mt-3" role="group" aria-label="First group">
+                <a href="/auth/trainer/{{_id}}/main" class="btn btn-info">return</a>
             </div>
+            <div class="card mb-3 " style="max-width: 640px;">
+                <div class="card-header">
+                    Profile picture
+                </div>
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{foundTrainer.image}}" alt="" width="160px" height="160px"
+                            class="rounded float-start rounded-circle">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">It will be shown to other users when they view your profile or your
+                                posts.</p>
+                            <p class="card-text">Maximum size: 2MB</p>
 
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Description</label>
-                <textarea type="text" class="form-control" aria-label="With textarea" value="{{foundTrainer.description}}" id="input-description-trainer" name="description" readonly></textarea>
-                </label>
+                            <input type="file" class="form-control" id="input-trainer-image" name="image"
+                                id="input-image-trainer" width="50px" disabled>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+            <div class="card mb-3 " style="width: 640px;">
+                <div class="card-header">
+                    Basic information
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name</label>
+                        <input type="tex" class="form-control" aria-describedby="emailHelp" id="input-name-trainer"
+                            name="name" placeholder="name" value="{{foundTrainer.name}}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="input-lastname-trainer" aria-describedby="emailHelp"
+                            name="lastName" placeholder="lastName" value="{{foundTrainer.lastName}}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputSelect" class="form-label">Gender</label>
+                        <select class="form-select" aria-label="Default select example" name="gender"
+                            id="input-gender-trainer" disabled>
+                            <option selected>{{foundTrainer.gender}}</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">From</label>
+                        <input class="form-control" id="input-from-trainer" type="text" name="from" placeholder="from"
+                            value="{{foundTrainer.from}}" disabled />
 
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Birthday</label>
+                        <input class="form-control" id="input-birthday-trainer" type="text" name="birthday"
+                            placeholder="birthday" value="{{foundTrainer.birthday}}" disabled />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Cell Phone</label>
+                        <input class="form-control" id="input-cellphone-trainer" type="text" name="cellPhone"
+                            placeholder="cellphone" value="{{foundTrainer.cellPhone}}" disabled />
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card mb-3" style="width: 640px;">
+                <div class="card-header">
+                    Professional information
+                </div>
+                <div class="card-body">
+                    
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Training</label>
+                        <input class="form-control" id="input-training-trainer" type="text" name="training"
+                            placeholder="training" value="{{foundTrainer.training}}" disabled />
+                        </label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Description</label>
+                        <textarea type="text" class="form-control" aria-label="With textarea"
+                            value="{{foundTrainer.description}}" id="input-description-trainer" name="description"
+                            disabled>
+                    
+                </textarea>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
             {{else}}
-            <img src="https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png" alt="" width="160px" height="160px"
-                class="rounded float-start rounded-circle">
+            <div class="card mb-3 " style="max-width: 640px;">
+                <div class="card-header">
+                    Profile picture
+                </div>
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="" alt="" width="160px" height="160px"
+                            class="rounded float-start rounded-circle">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">It will be shown to other users when they view your profile or your
+                                posts.</p>
+                            <p class="card-text">Maximum size: 2MB</p>
 
-            <input type="file" class="form-control" id="inputGroupFile01">
+                            <input type="file" class="form-control" id="input-trainer-image" name="image"
+                                id="input-image-trainer" width="50px">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+         <!--   <button class="btn btn-info" id="btn-edit-profileTrainer" type="button">
+                 <p>Edit</p>
+            </button>-->
+            <div class="card mb-3 " style="width: 640px;">
+                <div class="card-header">
+                    Basic information
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name</label>
+                        <input type="tex" class="form-control" aria-describedby="emailHelp" id="input-name-trainer"
+                            name="name" placeholder="name" value="" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="input-lastname-trainer" aria-describedby="emailHelp"
+                            name="lastName" placeholder="lastName" value="" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputSelect" class="form-label">Gender</label>
+                        <select class="form-select" aria-label="Default select example" name="gender"
+                            id="input-gender-trainer" disabled>
+                            <option selected></option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">From</label>
+                        <input class="form-control" id="input-from-trainer" type="text" name="from" placeholder="from"
+                            value="" disabled />
 
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Name</label>
-                <input type="tex" class="form-control" aria-describedby="emailHelp" id="input-name-trainer" name="name"
-                    placeholder="name" value="" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="input-lastname-trainer" aria-describedby="emailHelp"
-                    name="lastName" placeholder="lastName" value="" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputSelect" class="form-label">Gender</label>
-                <select class="form-select" aria-label="Default select example" name="gender" id="input-gender-trainer">
-                    <option selected></option>
-                    <option value="Patient">Male</option>
-                    <option value="Trainer">Female</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">From</label>
-                <input class="form-control" id="input-from-trainer" type="text" name="from" placeholder="from" value="" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Birthday</label>
+                        <input class="form-control" id="input-birthday-trainer" type="text" name="birthday"
+                            placeholder="birthday" value="" disabled />
+                    </div>
 
-            </div>
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Birthday</label>
-                <input class="form-control" id="input-birthday-trainer" type="text" name="birthday" placeholder="birthday" value="" readonly />
-            </div>
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Cell Phone</label>
+                        <input class="form-control" id="input-cellphone-trainer" type="text" name="cellPhone"
+                            placeholder="cellphone" value="" disabled />
+                        </label>
+                    </div>
 
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Cell Phone</label>
-                <input class="form-control" id="input-cellphone-trainer" type="text" name="cellPhone" placeholder="cellphone" value="" readonly />
-                </label>
+                </div>
             </div>
+            <div class="card mb-3" style="width: 640px;">
+                <div class="card-header">
+                    Professional information
+                </div>
+                <div class="card-body">
+                    
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Training</label>
+                        <input class="form-control" id="input-training-trainer" type="text" name="training"
+                            placeholder="training" value="" disabled />
+                        </label>
+                    </div>
 
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Training</label>
-                <input class="form-control" id="input-training-trainer" type="text" name="training" placeholder="training" value="" readonly />
-                </label>
-            </div>
+                    <div class="mb-3">
+                        <label for="exampleInput" class="form-label">Description</label>
+                        <textarea type="text" class="form-control" aria-label="With textarea"
+                            value="" id="input-description-trainer" name="description"
+                            disabled>
+                    
+                </textarea>
+                        </label>
+                    </div>
 
-            <div class="mb-3">
-                <label for="exampleInput" class="form-label">Description</label>
-                <textarea type="text" class="form-control" aria-label="With textarea" value="" id="input-description-trainer" name="description" readonly></textarea>
-                </label>
+                </div>
             </div>
+            
             {{/if}}
-
-            <button type="submit" class="btn btn-info">Update</button>
 
             {{#if errorMessage}}
             <p class="text-danger">{{errorMessage}}</p>

@@ -1,22 +1,49 @@
-<div>
-<div>
-  <h1>patient</h1>
-  <p>{{username}}</p>
-  <a href="/patient/{{_id}}/profile">profile</a>
-</div>
+<div class="container">
 
-<div>
-   {{#each foundTrainers}}
-    <div>
-      <img src="img" alt="" width="60px" height="60px">
-      <p>{{name}} {{lastName}}</p>
-      <p>{{gender}}</p>
-      <p>{{from}}</p>
-      <p>{{training}}</p>
-      <a href="/patient/{{_id}}/detailTrainer">details</a>
+  <div class="row">
+    <div class="col-md-1 mt-5">
+      <div class="box">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {{username}}
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/patient/{{_id}}/profile">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    {{/each}}
 
-    
-</div>
+
+    <div class="col-md-12 mt-5">
+      <div class="box">
+        <div class="row row-cols-1 row-cols-md-4 g-4" style="max-width: 80rem;">
+          {{#each foundTrainers}}
+          <div class="col">
+            <div class="card h-100">
+              <img src="{{image}}" class="card-img-top" alt="" width="120px">
+              <a href="/patient/{{_id}}/detailTrainer">
+                <div class="card-body">
+                  <h5 class="card-title">{{name}} {{lastName}}</h5>
+                  <p class="card-text">{{training}}</p>
+                  <p class="card-text text-truncate">{{description}}</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-body-secondary">Price</small>
+                  <h5 class="card-title">$30.00</h5>
+                </div>
+            </div>
+            </a>
+          </div>
+          {{/each}}
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>
