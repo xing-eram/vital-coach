@@ -8,18 +8,22 @@ const {
     postLogin,
     getMainPatient,
     getMainTrainer,
-    getAdminMain
+    getAdminMain,
+    getLogout
  } = require('../controller/auth.controller')
 
- const { isAdmin } = require('../middleware/isAdmin.route.middleware')
+const {isAdmin}  = require('../middleware/isAdmin.route.middleware')
+const isLoggedOut  = require("../middleware/isLoggedOut");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
-userRouter.get('/signup', getSignup);
-userRouter.post('/signup', postSignup);
-userRouter.get('/login', getLogin);
-userRouter.post('/login', postLogin);
-userRouter.get('/admin/:id/main', isAdmin, getAdminMain);
-userRouter.get('/patient/:id/main', getMainPatient);
-userRouter.get('/trainer/:id/main', getMainTrainer);
+userRouter.get('/signup', isLoggedOut, getSignup);
+userRouter.post('/signup', isLoggedOut, postSignup);
+userRouter.get('/login', isLoggedOut, getLogin);
+userRouter.post('/login', isLoggedOut, postLogin);
+userRouter.get('/admin/:id/main', isLoggedIn, isAdmin, getAdminMain);
+userRouter.get('/patient/:id/main', isLoggedIn, getMainPatient);
+userRouter.get('/trainer/:id/main', isLoggedIn, getMainTrainer);
+userRouter.get("/logout", isLoggedIn, getLogout)
 
 
 module.exports = userRouter;

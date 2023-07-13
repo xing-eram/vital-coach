@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const User = require('../models/User.model');
 const Trainer = require('../models/Trainer.model')
-const Schedule = require('../models/Schedule.model')
+const Day = require('../models/Day.model')
+const Calendar = require('../models/Calendar.model')
+const createCalendar = require('../utils/create-calendar')
 
 const getProfile = async (req, res, next) => {
     try {
@@ -24,22 +25,16 @@ const getProfile = async (req, res, next) => {
 
 const postProfile = async (req, res, next) => {
     try {
-        const { _id, username, email, profile } = req.session.currentUser;
-        const { name, lastname, gender, from, birthday, cellphone } = req.body;
+        const { _id: idUser, username, email, profile } = req.session.currentUser;
+        const { name, lastName, gender, from, birthday, cellPhone, training, description, image} = req.body;
 
-        const foundTrainer = await Trainer.findOne({user: _id})
+        const foundTrainer = await Trainer.findOne({user: idUser})
         .populate( {path: 'user'} )
-
-        if(foundTrainer){
-            const updateTrainer = await Trainer.findByIdAndUpdate({user: _id}, {name, lastname, gender, from, birthday, cellphone })
-            .populate( {path: 'user'} )
-            res.redirect(`/trainer/${_id}/profile`);
-        }else{
-            const createTrainer = await Trainer.create( {name, lastname, gender, from, birthday, cellphone, user: _id})
-
-            res.redirect(`/trainer/${_id}/profile`);
-        }
+        console.log(foundTrainer)
+        const trainerId = foundTrainer._id;
+        const updateTrainer = await Trainer.findByIdAndUpdate({_id: trainerId}, {name, lastName, gender, from, birthday, cellPhone, training, description})
         
+        res.redirect(`/trainer/${idUser}/profile`);
         
     } catch (error) {
         next(error);
@@ -48,26 +43,32 @@ const postProfile = async (req, res, next) => {
 
 const getSchedule = async (req, res, next) => {
     try {
-        const { _id, username, email, profile } = req.session.currentUser;
-        const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        const data = {
-            rows: []
-        };
+        const { _id: idUser, username, email, profile } = req.session.currentUser;
 
-        for (let i = 0; i < 24; i++) {
-            let cols = []
-            for (let j = 0; j < 7; j++) {
-                cols.push({
-                day: weekDays[j],
-                hour: i
-            })
-        }
-        data.rows.push({
-            hour: i,
-            cols
-        })      
-        }
-        res.render('trainer/schedule-trainer', { rows: data.rows, _id });
+        const foundTrainer = await Trainer.findOne({user: idUser})  
+        .populate({ path: 'user' })
+
+        const { _id: idTrainer }  = foundTrainer;
+
+        console.log('validamos que esta viajando el id del Entrenador', idTrainer)
+        let calendarData;
+        // si el usuario logueado es un admin revisamos si ya tiene un calendario asociado
+        calendarData = await Calendar.findOne({trainerId: idTrainer})
+        .populate( 'trainerId')
+        .populate({
+            path: 'days',
+            populate:{
+                path: 'appointments',
+                model:'Appointment'
+            }
+           
+        })
+        // console.log('calendarData: ', calendarData);
+      
+      
+        const calendar = createCalendar(calendarData, 6, 20);
+
+        res.render('trainer/schedule-trainer', {idUser, rows: calendar.rows  });
     } catch (error) {
         next(error);
     }
@@ -75,28 +76,48 @@ const getSchedule = async (req, res, next) => {
 
 const postSechedule = async (req, res, next) => {
     try {
-        const dayHours = Array(24).fill(1).map((_, i) => i);
-        console.log(dayHours)
+    
+        console.log('entramos al metodo post para crear el calendario')
         const {day, hour} = req.body;
-        const { _id, username, email, profile } = req.session.currentUser;
-       
+        const { _id: idUser, username, email, profile } = req.session.currentUser;
+        
 
-        const {_id: _idTrainer }  = await Trainer.findOne({user: _id})
+        const foundTrainer = await Trainer.findOne({user: idUser})  
         .populate( {path: 'user'} )
 
-        //const {_id: _idTrainer } = foundTrainer
+        const {_id: idTrainer } = foundTrainer;
 
-        for (const day of Object.keys(req.body)) {
-            await Schedule.create({
-                day: day,
-                openTimeBlocks: req.body[day],
-                trainer:_idTrainer
+        const calendar = await Calendar.findOne({trainerId: idTrainer});
+        let calendarId =  calendar && calendar._id;
+
+        if(!calendarId) {
+            // si no tenia, creamos un nuevo calendario
+            const newCalendar = await Calendar.create({
+                date: new Date(),
+                trainerId: idTrainer,
             })
- 
+            calendarId = newCalendar._id;
         }
-        console.log('req.body: ', req.body);
-        res.redirect(`/trainer/${_id}/schedule`);
 
+        const newDays = [];
+        for (const day of Object.keys(req.body)) {
+            const calendarDay = await Day.create({
+                day: day,
+                date: new Date(), //
+                openTimeBlocks: req.body[day]
+            }); 
+            newDays.push(calendarDay._id);
+        }
+
+        await Calendar.findByIdAndUpdate(
+            calendarId, // buscamos el calendario asociado al user
+            { $set: { days: newDays } }, // y le agregamosidTrainer los dias creados
+            { new: true } 
+        )
+
+        
+        console.log('req.body: ', req.body);
+        res.redirect(`/trainer/${idUser}/schedule`)
         
     } catch (error) {
         next(error)

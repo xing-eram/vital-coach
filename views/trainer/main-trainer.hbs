@@ -1,21 +1,138 @@
-<div>
-    <div>
-        
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 m-1">
+            <div class="box">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        {{#if foundTrainer}}
+                        <div class="col-md-4">
+                            <img src="{{foundTrainer.image}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{foundTrainer.name}} {{foundTrainer.lastName}}</h5>
+                                <p class="card-text">From {{foundTrainer.from}}</p>
+                                <p class="card-text"> <small
+                                        class="text-body-secondary">{{foundTrainer.birthday}}</small></p>
+                                <p class="card-text"> <small class="text-body-secondary">{{foundTrainer.gender}}</small>
+                                </p>
+                                <p class="card-text"><small class="text-body-secondary">Username {{username}}</small>
+                                </p>
+                                </p>
+                            </div>
+                        </div>
+                        {{else}}
+                        <div class="col-md-4">
+                            <img src="https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png"
+                                class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+
+                                <h5 class="card-title">{{username}}</h5>
+                                <p class="card-text"></p>
+                                <p class="card-text"><small class="text-body-secondary">From</small></p>
+                                <p class="card-text"><small class="text-body-secondary">Username {{username}}</small>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 m-1">
+            <div class="card">
+                <div class="card-header">
+                    Profile
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{foundTrainer.training}}</h5>
+                    <p class="card-text">{{foundTrainer.description}}</p>
+
+                    <a href="/trainer/{{idUser}}/profile" class="btn btn-info">Edit profile</a>
+                </div>
+            </div>
+
+        </div>
+
     </div>
-    <div>
-        <h1>Trainer</h1>
 
-        <p>{{username}}</p>
+    <div class="row">
+        <div class="col-md-5 m-1">
+            <div class="box">
 
-        <a href="/trainer/{{_id}}/profile">profile</a>
-        <a href="/trainer/{{_id}}/schedule">schedule</a>
+            </div>
+        </div>
+        <div class="col-md-6 m-1">
+            <div class="box">
+                <div class="card">
+                    <div class="card-header">
+                        Schedule
+                    </div>
+                    <div class="card-body">
+                        <div class="container callendar-body">
+                            <div class="row d-flex justify-content">
+                                <table class="table table-bordered" style="width: 500px;">
+                                    <tr>
+                                        <th scope="col" class="col-1">Timezone</th>
+                                        <th scope="col" class="col-1">Lun</th>
+                                        <th scope="col" class="col-1">Mar</th>
+                                        <th scope="col" class="col-1">Mie</th>
+                                        <th scope="col" class="col-1">Jue</th>
+                                        <th scope="col" class="col-1">Vie</th>
+                                        <th scope="col" class="col-1">Sab</th>
+                                        <th scope="col" class="col-1">Dom</th>
+                                    </tr>
+                                    {{#each rows}}
+                                    <tr>
+                                        <td class="p-0">
+                                            <div class="box"> {{hour}}:00 </div>
+                                        </td>
+                                        {{#each cols}}
+                                        {{#if isBooked}}
+                                        <td class="p-0">
+                                            <input type="checkbox" class="btn-check"
+                                                id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off"
+                                                name="{{day}}" value="{{hour}}" disabled>
+                                            <label class="btn btn-outline-danger d-block hide-text"
+                                                for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                        </td>
+                                        {{else if isOpen}}
+                                        <td class="p-0">
+                                            <input type="checkbox" class="btn-check"
+                                                id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off"
+                                                name="{{day}}" value="{{hour}}" disabled>
+                                            <label class="btn btn-outline-success d-block hide-text"
+                                                for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                        </td>
+                                        {{else}}
 
-        
+                                        <td class="p-0">
+                                            <input type="checkbox" class="btn-check"
+                                                id="btn-check-outlined-{{day}}-{{hour}}" autocomplete="off"
+                                                name="{{day}}" value="{{hour}}" disabled>
+                                            <label class="btn btn-outline-primary d-block hide-text"
+                                                for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                        </td>
+                                        {{/if}}
+                                        {{/each}}
+                                    </tr>
+                                    {{/each}}
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <a href="/trainer/{{idUser}}/schedule" class="btn btn-info">Edit schedule</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
 </div>
-
-
-
-
-
-

@@ -1,0 +1,54 @@
+<div>
+   {{#with foundTrainer}}
+    <div>
+      <img src="img" alt="" width="60px" height="60px">
+      <p>{{name}} {{lastName}}</p>
+      <p>{{gender}}</p>
+      <p>{{from}}</p>
+      <p>{{training}}</p>
+    </div>
+    {{/with}}
+    
+</div>
+
+<div class="container callendar-body">
+            <div class="row d-flex justify-content">
+                    <form action="/patient/create/{{calendarId}}/appointment" method="post">
+                        <table class="table table-bordered" style="width: 500px;">
+                            <tr>
+                                <th scope="col" class="col-1">Timezone</th>
+                                <th scope="col" class="col-1">Lun</th>
+                                <th scope="col" class="col-1">Mar</th>
+                                <th scope="col" class="col-1">Mie</th>
+                                <th scope="col" class="col-1">Jue</th>
+                                <th scope="col" class="col-1">Vie</th>
+                                <th scope="col" class="col-1">Sab</th>
+                                <th scope="col" class="col-1">Dom</th>
+                            </tr>
+                                {{#each rows}}
+                                    <tr>
+                                        <td class="p-0"> <div class="box"> {{hour}}:00 </div> </td>
+
+                                        {{#each cols}}
+                                            {{#if isBooked}} 
+                                                <td class="p-0"> 
+                                                    <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off" disabled>
+                                                    <label class="btn btn-danger d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}">+</label>
+                                                </td>   
+                                            {{else if isOpen}}
+                                                <td class="p-0"> 
+                                                    <input type="checkbox" class="btn-check" id="btn-check-{{day}}-{{hour}}" autocomplete="off" name="{{day}}" value="{{hour}}">
+                                                    <label class="btn btn-success d-block hide-text" for="btn-check-{{day}}-{{hour}}"> + </label>
+                                                </td>
+                                            {{else}}
+                                                <td class="p-0"></td>
+                                            {{/if}}
+                                        {{/each}}
+                                    </tr>
+                                {{/each}}
+                        </table>
+                        <button class="btn btn-primary" type="submit"> submit</button>
+                    </form>
+                </div>
+  
+</div>
