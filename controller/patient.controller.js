@@ -5,6 +5,7 @@ const Calendar = require('../models/Calendar.model')
 const Day = require('../models/Day.model')
 const createCalendar = require('../utils/create-calendar');
 const Appointment = require('../models/Appointments.model');
+const User = require('../models/User.model');
 
 const getProfile = async (req, res, next) => {
     try {
@@ -121,6 +122,11 @@ const postCreateAppointments = async (req, res, next) => {
             }
         }
     }
+    User.findByIdAndUpdate(userId,{ 
+        
+         $push: { trainers: trainerId } ,
+
+    })
     // /owner/${calendar.userId._id}/detail
     res.redirect(`/patient/${trainerId}/detailTrainer`)
 }

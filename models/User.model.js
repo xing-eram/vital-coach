@@ -24,7 +24,11 @@ const userSchema = new Schema(
       type: String,
       required: true,
       enum: ['Trainer', 'Patient', 'Admin']
-    }
+    },
+    trainer:[{
+      type: Schema.Types.ObjectId,
+    ref: "Trainer"
+    }]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    
