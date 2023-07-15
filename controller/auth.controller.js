@@ -12,8 +12,6 @@ const getSignup = (req, res, next) => {
 
 const postSignup = async (req, res, next) => {
     const {username, email, password, confirmpassword, profile} = req.body;
-   
-
     try {
         
         if(!username) {
@@ -98,14 +96,20 @@ const postSignup = async (req, res, next) => {
     }
 }
 
-const getLogin = (req, res) => {
-    res.render('auth/login');
+const getLogin = (req, res, next) => {
+    try {
+        res.render('auth/login');
+    } catch (error) {
+        next(error)
+    }
+    
 }
 
 const postLogin = async (req, res, next) => {
+    try {
     const {user,  password,} = req.body;
     console.log(req.body)
-    try {
+    
         if(!user) {
             return res.status(400).render('auth/login', { errorMessage: 'The username or email fiel is required' });
         }
@@ -159,6 +163,12 @@ const getMainTrainer = async (req, res, next) => {
 
         const { _id: idTrainer }  = foundTrainer;
 
+        const {birthday} = foundTrainer;
+
+        let toDay = new Date();
+        let birthdayTrainer = new Date(birthday);
+        let age = toDay.getFullYear() - birthdayTrainer.getFullYear();
+
         console.log('validamos que esta viajando el id del Entrenador', idTrainer)
 
         let calendarData;
@@ -178,7 +188,7 @@ const getMainTrainer = async (req, res, next) => {
       
         const calendar = createCalendar(calendarData, 6, 20);
 
-        res.render('trainer/main-trainer', {idUser, username, email, profile, foundTrainer, rows: calendar.rows });
+        res.render('trainer/main-trainer', {idUser, username, email, profile, age, foundTrainer, rows: calendar.rows });
 
     } catch (error) {
         next(error)

@@ -12,6 +12,8 @@ const updateProfile = (event) =>{
   document.getElementById('input-description-trainer').removeAttribute('disabled')
   document.getElementById('input-trainer-image').removeAttribute('disabled')
   document.getElementById('btn-update-trainer-profile').removeAttribute('disabled')
+  document.getElementById('input-price-trainer').removeAttribute('disabled')
+
 }
 if(updateProfile){
   buttonUpdateProfile.addEventListener('click', updateProfile);

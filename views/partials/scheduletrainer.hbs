@@ -1,0 +1,41 @@
+<div class="container callendar-body">
+            <div class="row d-flex justify-content">
+                    <table class="table table-bordered" style="width: 500px;">
+                        <tr>
+                            <th scope="col" class="col-1">Timezone</th>
+                            <th scope="col" class="col-1">Lun</th>
+                            <th scope="col" class="col-1">Mar</th>
+                            <th scope="col" class="col-1">Mie</th>
+                            <th scope="col" class="col-1">Jue</th>
+                            <th scope="col" class="col-1">Vie</th>
+                            <th scope="col" class="col-1">Sab</th>
+                            <th scope="col" class="col-1">Dom</th>
+                        </tr>
+                            {{#each rows}}
+                                 <tr>
+                                    <td class="p-0"> <div class="box"> {{hour}}:00 </div> </td>
+                                    {{#each cols}}
+                                        {{#if isBooked}} 
+                                            <td class="p-0"> 
+                                                <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off" name="{{day}}" value="{{hour}}" disabled>
+                                                <label class="btn btn-outline-danger d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                            </td>   
+                                        {{else if isOpen}}
+                                            <td class="p-0"> 
+                                                <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off" name="{{day}}" value="{{hour}}">
+                                                <label class="btn btn-outline-success d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                            </td>
+                                        {{else}}
+
+                                            <td class="p-0"> 
+                                                <input type="checkbox" class="btn-check" id="btn-check-outlined-{{day}}-{{hour}}" autocomplete="off" name="{{day}}" value="{{hour}}">
+                                                <label class="btn btn-outline-primary d-block hide-text" for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
+                                            </td>
+                                        {{/if}}
+                                    {{/each}}
+                                </tr>
+                            {{/each}}
+                    </table>
+            </div>
+  
+</div>

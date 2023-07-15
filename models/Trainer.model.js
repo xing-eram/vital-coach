@@ -29,25 +29,28 @@ const trainerSchema = new Schema({
     description:{
         type: String
     },
-    image:{
+    price:{
+        type: Number
+    },
+    imageProfile:{
         type: String,
         default: "https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png"
     },
+    images: [String],
     courses:[
         {
-            description: {
-                type: String,
-                require: true
-            },
-            image:{
-                type: String
-            }
+            type: Schema.Types.ObjectId,
+            ref: 'Course'
         }
     ],
     user: { 
-        type: Schema.ObjectId, 
+        type: Schema.Types.ObjectId, 
         ref: 'User' 
-    }
+    },
+    patients:[{
+        type: Schema.Types.ObjectId, 
+        ref: 'Patient'
+    }]
 })
 
 const Trainer = model('Trainer', trainerSchema);

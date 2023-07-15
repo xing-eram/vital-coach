@@ -22,7 +22,7 @@ require('./config/session.config')(app);
 // default value for title local
 const capitalize = require("./utils/capitalize");
 const projectName = "VITAL-COACH";
-
+hbs.registerPartials( __dirname + '/views/partials');
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
 // 👇 Start handling routes here

@@ -6,14 +6,15 @@
                     <div class="row g-0">
                         {{#if foundTrainer}}
                         <div class="col-md-4">
-                            <img src="{{foundTrainer.image}}" class="img-fluid rounded-start" alt="...">
+                            <img src="{{foundTrainer.imageProfile}}"
+                                class="rounded float-start rounded-circle mx-auto p-2" alt="" width="160px"
+                                height="160px">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{foundTrainer.name}} {{foundTrainer.lastName}}</h5>
                                 <p class="card-text">From {{foundTrainer.from}}</p>
-                                <p class="card-text"> <small
-                                        class="text-body-secondary">{{foundTrainer.birthday}}</small></p>
+                                <p class="card-text"> <small class="text-body-secondary">{{age}} years</small></p>
                                 <p class="card-text"> <small class="text-body-secondary">{{foundTrainer.gender}}</small>
                                 </p>
                                 <p class="card-text"><small class="text-body-secondary">Username {{username}}</small>
@@ -24,7 +25,7 @@
                         {{else}}
                         <div class="col-md-4">
                             <img src="https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png"
-                                class="img-fluid rounded-start" alt="...">
+                                class="rounded float-start rounded-circle mx-auto p-2" alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -64,7 +65,44 @@
     <div class="row">
         <div class="col-md-5 m-1">
             <div class="box">
-
+                <div class="card">
+                    <div class="card-header">
+                        Patients
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Last</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td>
+                                    <td><a href="#" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">detail</a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Jacob</td>
+                                    <td>Thornton</td>
+                                    <td>@fat</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td colspan="2">Larry the Bird</td>
+                                    <td>@twitter</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-6 m-1">
@@ -104,8 +142,8 @@
                                         {{else if isOpen}}
                                         <td class="p-0">
                                             <input type="checkbox" class="btn-check"
-                                                id="btn-check-outlined-{{day}}-{{hour}}" checked autocomplete="off"
-                                                name="{{day}}" value="{{hour}}" disabled>
+                                                id="btn-check-outlined-{{day}}-{{hour}}-disable" checked
+                                                autocomplete="off" name="{{day}}-disable" value="{{hour}}" disabled>
                                             <label class="btn btn-outline-success d-block hide-text"
                                                 for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
                                         </td>
@@ -113,8 +151,8 @@
 
                                         <td class="p-0">
                                             <input type="checkbox" class="btn-check"
-                                                id="btn-check-outlined-{{day}}-{{hour}}" autocomplete="off"
-                                                name="{{day}}" value="{{hour}}" disabled>
+                                                id="btn-check-outlined-{{day}}-{{hour}}-disable" autocomplete="off"
+                                                name="{{day}}-disable" value="{{hour}}" disabled>
                                             <label class="btn btn-outline-primary d-block hide-text"
                                                 for="btn-check-outlined-{{day}}-{{hour}}"> + </label>
                                         </td>
@@ -127,7 +165,10 @@
 
                         </div>
 
-                        <a href="/trainer/{{idUser}}/schedule" class="btn btn-info">Edit schedule</a>
+                        <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Edit scehdule
+                        </button>
                     </div>
                 </div>
 
@@ -135,4 +176,28 @@
         </div>
     </div>
 
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="CreateModal" aria-hidden="true">
+        <form action="/trainer/{{idUser}}/schedule" method="post">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="CreateModal">Schedule Trainer</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{> scheduletrainer }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create Schedule</button>
+                    </div>
+        </form>
+    </div>
+</div>
+</div>
 </div>
