@@ -1,30 +1,59 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-1 mt-5">
+    <div class="col-md-12 mt-2">
       <div class="box">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            {{username}}
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/patient/{{_id}}/profile">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div>
+
+        <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        {{#if foundPatient}}
+                        <div class="col-md-4">
+                            <img src="{{foundPatient.image}}"
+                                 class="rounded float-start rounded-circle" alt="" width="160px" height="160px">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{foundPatient.name}} {{foundPatient.lastName}}</h5>
+                                <p class="card-text">From {{foundPatient.from}}</p>
+                                <p class="card-text"> <small class="text-body-secondary">{{age}} years</small></p>
+                                <p class="card-text"> <small class="text-body-secondary">{{foundPatient.gender}}</small>
+                                </p>
+                                <p class="card-text"><small class="text-body-secondary">Username {{username}}</small>
+                                </p>
+                                </p>
+                            </div>
+                        </div>
+                        {{else}}
+                        <div class="col-md-4">
+                            <img src="https://cdn0.iconfinder.com/data/icons/communication-456/24/account_profile_user_contact_person_avatar_placeholder-512.png"
+                                 class="rounded float-start rounded-circle" alt="" width="160px" height="160px">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+
+                                <h5 class="card-title">{{username}}</h5>
+                                <p class="card-text"></p>
+                                <p class="card-text"><small class="text-body-secondary">From</small></p>
+                                <p class="card-text"><small class="text-body-secondary">Username {{username}}</small>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        {{/if}}
+                    </div>
+                </div>
       </div>
     </div>
 
-
     <div class="col-md-12 mt-5">
       <div class="box">
-        <div class="row row-cols-1 row-cols-md-4 g-4" style="max-width: 80rem;">
+        <div class="rounded float-start rounded-circle mx-auto p-2" style="max-width: 80rem;">
           {{#each foundTrainers}}
           <div class="col">
             <div class="card h-100">
-              <img src="{{image}}" class="card-img-top" alt="" width="120px">
+              <img src="{{imageProfile}}" class="rounded float-start rounded-circle mx-auto p-2" alt="" width="180px"
+                height="180px">
               <a href="/patient/{{_id}}/detailTrainer">
                 <div class="card-body">
                   <h5 class="card-title">{{name}} {{lastName}}</h5>

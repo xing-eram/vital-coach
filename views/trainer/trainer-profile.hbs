@@ -1,5 +1,5 @@
 <div class="container">
-    <form action="/trainer/{{_id}}/profile" method="POST" enctype="multipart/form-data"></form>
+    <form action="/trainer/{{_id}}/profile" method="POST" enctype="multipart/form-data">
     <div class="row">
         <div class="col">
             <div class="box">
@@ -116,9 +116,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInput" class="form-label">consultation price</label>
-                            <input type="text" class="form-control" aria-label="With textarea"
-                                id="input-price-trainer" name="price" value="{{foundTrainer.price}}"
-                                disabled>
+                            <input type="text" class="form-control" aria-label="With textarea" id="input-price-trainer"
+                                name="price" value="{{foundTrainer.price}}" disabled>
                             </label>
                         </div>
                     </div>
@@ -144,10 +143,11 @@
                                     <th scope="row">1</th>
                                     <td>{{title}}</td>
                                     <td>{{institution}}</td>
-                                    <td><a href="#" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">detail</a></td>
+                                    <td><a href="#" class="btn btn-info" tabindex="-1" role="button"
+                                            aria-disabled="true">detail</a></td>
                                 </tr>
                                 {{/each}}
-                                
+
                             </tbody>
                         </table>
 
@@ -156,11 +156,10 @@
 
                             <div class="modal-dialog">
                                 <div class="modal-content">
-                                    {{> coursesTrainer}}
+                                   <!-- {{> coursesTrainer}}-->
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="card-footer">
                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
@@ -269,12 +268,11 @@
                                 </div>
 
                                 <div class="mb-3">
-                            <label for="exampleInput" class="form-label">consultation price</label>
-                            <input type="text" class="form-control" aria-label="With textarea"
-                                id="input-price-trainer" name="price" value=""
-                                disabled>
-                            </label>
-                        </div>
+                                    <label for="exampleInput" class="form-label">consultation price</label>
+                                    <input type="text" class="form-control" aria-label="With textarea"
+                                        id="input-price-trainer" name="price" value="" disabled>
+                                    </label>
+                                </div>
 
                             </div>
                         </div>
