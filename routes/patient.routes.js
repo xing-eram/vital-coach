@@ -6,8 +6,11 @@ const {
     postCreateAppointments
 } = require('../controller/patient.controller')
 
-patientRouter.get('/:id/profile', getProfile)
-patientRouter.get('/:id/detailTrainer', getDetailTrainer)
-patientRouter.post('/create/:calendarId/appointment', postCreateAppointments)
+const isLoggedOut  = require("../middleware/isLoggedOut");
+const isLoggedIn = require("../middleware/isLoggedIn");
+
+patientRouter.get('/:id/profile', isLoggedIn, getProfile)
+patientRouter.get('/:id/detailTrainer', isLoggedIn,getDetailTrainer)
+patientRouter.post('/create/:calendarId/appointment', isLoggedIn, postCreateAppointments)
 
 module.exports = patientRouter;
