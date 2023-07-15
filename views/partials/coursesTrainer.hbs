@@ -1,0 +1,38 @@
+<div class="container">
+    <form action="/trainer/{{foundTrainer._id}}/profile/courses" method="post" enctype="multipart/form-data">
+
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="CreateModal">Certifications</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Title</label>
+                <input class="form-control" id="input-course-title-trainer" type="text" name="title"
+                    placeholder="title" value="" />
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Intitution</label>
+                <input class="form-control" id="input-course-institution-trainer" type="text" name="institution"
+                    placeholder="institution" value="" />
+
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInput" class="form-label">Certicate</label>
+                <input type="file" class="form-control" id="input-trainer-course" name="fileCourse"
+                    id="input-image-trainer" width="50px" />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Add</button>
+        </div>
+
+        {{#if errorMessage}}
+            <p class="text-danger">{{errorMessage}}</p>
+
+            {{/if}}
+    </form>
+</div>

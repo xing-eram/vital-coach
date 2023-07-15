@@ -10,23 +10,6 @@ function createCalendar(calendarData, startHour = 0, endHour = 24) {
   const data = {
     rows: []
   };
-  /**
-   * la infromacion de calendarData luce asi:
-   * [
-   *   {
-   *     name: 'Lunes',
-   *     openTimeBlocks: [ 4, 5 ],
-   *     appointments: [{ _id, scheduledTimeBlocks: [ 4] }] 
-   *   },
-    *   {
-   *     name: 'Martes',
-   *     openTimeBlocks: [ 4, 5 ],
-   *     appointments: [ { _id, scheduledTimeBlocks: [ 4, 5 ] } ] 
-   *   },
-   * ]
-   * 
-   * cuando no esta vacia
-   */
   for (let i = startHour; i < endHour; i++) {
     let cols = []
     for (let j = 0; j < weekDays.length; j++) {

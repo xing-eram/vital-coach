@@ -1,11 +1,14 @@
 const { Schema, model } = require("mongoose");
 
 const courseSchema = new Schema({
-    description: {
+    title: {
         type: String,
         require: true
     },
-    image:{
+    institution:{
+        type: String
+    },
+    file:{
         type: String
     }
     
