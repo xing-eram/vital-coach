@@ -38,6 +38,10 @@ app.use("/trainer", trainerRoutes);
 const patientRoutes = require('./routes/patient.routes');
 app.use("/patient", patientRoutes);
 
+const homeRoutes = require('./routes/home.routes')
+app.use("/home", homeRoutes);
+
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 

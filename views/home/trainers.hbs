@@ -1,0 +1,27 @@
+<div class="col-md-12 mt-5">
+      <div class="box">
+        <div class="rounded float-start rounded-circle mx-auto p-2" style="max-width: 80rem;">
+          {{#each foundTrainers}}
+          <div class="col">
+            <div class="card h-100">
+              <img src="{{imageProfile}}" class="rounded float-start rounded-circle mx-auto p-2" alt="" width="180px"
+                height="180px">
+              <a href="/patient/{{_id}}/detailTrainer">
+                <div class="card-body">
+                  <h5 class="card-title">{{name}} {{lastName}}</h5>
+                  <p class="card-text">{{training}}</p>
+                  <p class="card-text text-truncate">{{description}}</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-body-secondary">Price</small>
+                  <h5 class="card-title">$30.00</h5>
+                </div>
+            </div>
+            </a>
+          </div>
+          {{/each}}
+
+        </div>
+
+      </div>
+</div>
